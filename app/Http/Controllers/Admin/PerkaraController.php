@@ -89,7 +89,7 @@ class PerkaraController extends Controller
             $validated['file_dokumentasi'] = $path;
         }
 
-        $validated['is_public'] = $request->has('is_public');
+        $validated['is_public'] = $request->boolean('is_public');
 
         $perkara = Perkara::create($validated);
 
@@ -158,7 +158,7 @@ class PerkaraController extends Controller
             $validated['file_dokumentasi'] = $path;
         }
 
-        $validated['is_public'] = $request->has('is_public');
+   $validated['is_public'] = $request->boolean('is_public');
 
         $perkara->update($validated);
 

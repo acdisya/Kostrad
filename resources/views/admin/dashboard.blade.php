@@ -151,19 +151,7 @@
                 </div>
             </a>
 
-            <a href="{{ route('admin.personels.index') }}" class="bg-gradient-to-br from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white rounded-xl shadow-lg p-6 transition duration-300 transform hover:scale-105">
-                <div class="flex items-center space-x-4">
-                    <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="font-bold text-lg">Data Personel</p>
-                        <p class="text-purple-100 text-sm">Kelola personel</p>
-                    </div>
-                </div>
-            </a>
+
         </div>
 
         <!-- Recent Cases & Category Stats -->
