@@ -2,29 +2,35 @@
 <!DOCTYPE html>
 
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistem Informasi Perkara - Divisi 2 Kostrad</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
         }
+
         .gradient-bg {
             background: linear-gradient(135deg, rgba(30, 58, 32, 0.95) 0%, rgba(45, 80, 22, 0.95) 50%, rgba(26, 77, 46, 0.95) 100%);
         }
+
         .hover-lift {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
         .hover-lift:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
+
         .military-pattern {
             background-image:
-                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,.03) 10px, rgba(255,255,255,.03) 20px);
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 255, 255, .03) 10px, rgba(255, 255, 255, .03) 20px);
         }
 
         /* ============================================
@@ -57,21 +63,23 @@
         }
     </style>
 </head>
+
 <body class="bg-gray-50">
     <!-- Navbar -->
     <nav class="bg-gradient-to-r from-green-900 via-green-800 to-green-900 shadow-lg fixed w-full top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
+            <div class="flex justify-between items-center h-18 py-3">
                 <div class="flex items-center space-x-4">
                     <!-- ============================================
                          🔴 GANTI LOGO DI SINI (OPTIONAL)
                          ============================================
                          Ganti <div> dengan <img> jika ada logo lokal
-                         Contoh: <img src="/images/logo-kostrad.png" class="w-14 h-14" alt="Logo Kostrad">
+                         Contoh: <img src="/images/logo-kostrad.png" class="w-12 h-12" alt="Logo Kostrad">
                          ============================================ -->
-                    <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-md">
-                        <svg class="w-8 h-8 text-green-800" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
+                    <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md">
+                        <svg class="w-7 h-7 text-green-800" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
                         </svg>
                     </div>
                     <div>
@@ -80,14 +88,20 @@
                     </div>
                 </div>
                 <div class="hidden md:flex space-x-8">
-                    <a href="#beranda" class="text-white hover:text-green-300 font-medium transition duration-300">Beranda</a>
-                    <a href="#tentang" class="text-white hover:text-green-300 font-medium transition duration-300">Tentang Sistem</a>
-                    <a href="#data-perkara" class="text-white hover:text-green-300 font-medium transition duration-300">Data Perkara Publik</a>
-                    <a href="#kontak" class="text-white hover:text-green-300 font-medium transition duration-300">Kontak</a>
+                    <a href="#beranda"
+                        class="text-white hover:text-green-300 font-medium transition duration-300">Beranda</a>
+                    <a href="#tentang"
+                        class="text-white hover:text-green-300 font-medium transition duration-300">Tentang Sistem</a>
+                    <a href="#data-perkara"
+                        class="text-white hover:text-green-300 font-medium transition duration-300">Data Perkara
+                        Publik</a>
+                    <a href="#kontak"
+                        class="text-white hover:text-green-300 font-medium transition duration-300">Kontak</a>
                 </div>
                 <button class="md:hidden text-white">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
                 </button>
             </div>
@@ -105,22 +119,25 @@
         <div class="hero-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
                 <div class="inline-block mb-6">
-                    <span class="bg-green-700 text-green-100 px-6 py-2 rounded-full text-sm font-semibold tracking-wide uppercase">
+                    <span
+                        class="bg-green-700 text-green-100 px-6 py-2 rounded-full text-sm font-semibold tracking-wide uppercase">
                         Sistem Informasi Resmi TNI AD
                     </span>
                 </div>
                 <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
-                    Digitalisasi Pencatatan dan<br/>Penelusuran Perkara Militer
+                    Digitalisasi Pencatatan dan<br />Penelusuran Perkara Militer
                 </h1>
                 <p class="text-xl text-green-100 mb-10 max-w-3xl mx-auto leading-relaxed">
                     Sistem informasi terintegrasi untuk mencatat, mengelola, dan menelusuri data perkara di lingkungan
                     Divisi 2 Kostrad dengan standar keamanan tinggi dan transparansi yang terukur.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="#data-perkara" class="bg-white text-green-900 px-8 py-4 rounded-lg font-bold text-lg hover:bg-green-50 transition duration-300 shadow-xl hover:shadow-2xl">
+                    <a href="#data-perkara"
+                        class="bg-white text-green-900 px-8 py-4 rounded-lg font-bold text-lg hover:bg-green-50 transition duration-300 shadow-xl hover:shadow-2xl">
                         Lihat Data Perkara
                     </a>
-                    <a href="#tentang" class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-green-900 transition duration-300">
+                    <a href="#tentang"
+                        class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-green-900 transition duration-300">
                         Pelajari Lebih Lanjut
                     </a>
                 </div>
@@ -142,7 +159,8 @@
                     <p class="text-gray-700 leading-relaxed mb-4">
                         Sistem Informasi Pencatatan dan Penelusuran Duduk Perkara dikembangkan untuk menjawab kebutuhan
                         modernisasi administrasi hukum di lingkungan Divisi 2 Kostrad. Dengan sistem digital ini,
-                        proses pencatatan dan penelusuran perkara menjadi lebih cepat, akurat, dan dapat dipertanggungjawabkan.
+                        proses pencatatan dan penelusuran perkara menjadi lebih cepat, akurat, dan dapat
+                        dipertanggungjawabkan.
                     </p>
                     <p class="text-gray-700 leading-relaxed">
                         Transparansi dan akuntabilitas menjadi prioritas utama dalam mendukung penegakan hukum militer
@@ -176,7 +194,8 @@
                 <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 hover-lift">
                     <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
                         <svg class="w-8 h-8 text-green-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
                     </div>
                     <h3 class="text-2xl font-bold text-gray-900 mb-4">Efisiensi Tinggi</h3>
@@ -189,7 +208,8 @@
                 <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 hover-lift">
                     <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
                         <svg class="w-8 h-8 text-green-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                         </svg>
                     </div>
                     <h3 class="text-2xl font-bold text-gray-900 mb-4">Keamanan Maksimal</h3>
@@ -202,8 +222,10 @@
                 <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 hover-lift">
                     <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
                         <svg class="w-8 h-8 text-green-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                         </svg>
                     </div>
                     <h3 class="text-2xl font-bold text-gray-900 mb-4">Transparansi Publik</h3>
@@ -232,8 +254,10 @@
                     <table class="w-full">
                         <thead class="bg-gradient-to-r from-green-800 to-green-900 text-white">
                             <tr>
-                                <th class="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Nomor Perkara</th>
-                                <th class="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Jenis Perkara</th>
+                                <th class="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Nomor
+                                    Perkara</th>
+                                <th class="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Jenis
+                                    Perkara</th>
                                 <th class="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Tanggal</th>
                                 <th class="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Status</th>
                             </tr>
@@ -250,7 +274,8 @@
                                     <div class="text-sm text-gray-600">15 Januari 2024</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                    <span
+                                        class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                         Selesai
                                     </span>
                                 </td>
@@ -266,7 +291,8 @@
                                     <div class="text-sm text-gray-600">22 Februari 2024</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                    <span
+                                        class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                         Selesai
                                     </span>
                                 </td>
@@ -282,7 +308,8 @@
                                     <div class="text-sm text-gray-600">10 Maret 2024</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                    <span
+                                        class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                         Selesai
                                     </span>
                                 </td>
@@ -294,9 +321,9 @@
                     <div class="flex justify-between items-center">
                         <p class="text-sm text-gray-600">Menampilkan 3 dari total perkara yang diselesaikan</p>
                         <a href="{{ route('perkara.public') }}"
-   class="bg-green-800 text-white px-6 py-2 rounded-lg font-semibold hover:bg-green-900 transition duration-300">
-   Lihat Semua Data
-</a>
+                            class="bg-green-800 text-white px-6 py-2 rounded-lg font-semibold hover:bg-green-900 transition duration-300">
+                            Lihat Semua Data
+                        </a>
 
                     </div>
                 </div>
@@ -316,50 +343,61 @@
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="flex items-start space-x-4">
                         <div class="w-12 h-12 bg-green-800 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg>
                         </div>
                         <div>
                             <h4 class="font-bold text-gray-900 mb-2">Alamat</h4>
-                            <p class="text-gray-700">Seksi Hukum Divisi 2 Kostrad<br/>Markas Besar TNI AD<br/>Jakarta, Indonesia</p>
+                            <p class="text-gray-700">Seksi Hukum Divisi 2 Kostrad<br />Markas Besar TNI
+                                AD<br />Jakarta, Indonesia</p>
                         </div>
                     </div>
 
                     <div class="flex items-start space-x-4">
                         <div class="w-12 h-12 bg-green-800 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                             </svg>
                         </div>
                         <div>
                             <h4 class="font-bold text-gray-900 mb-2">Email</h4>
-                            <p class="text-gray-700">seksi.hukum@div2kostrad.mil.id<br/>admin@siperkara-div2.mil.id</p>
+                            <p class="text-gray-700">seksi.hukum@div2kostrad.mil.id<br />admin@siperkara-div2.mil.id
+                            </p>
                         </div>
                     </div>
 
                     <div class="flex items-start space-x-4">
                         <div class="w-12 h-12 bg-green-800 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                             </svg>
                         </div>
                         <div>
                             <h4 class="font-bold text-gray-900 mb-2">Telepon</h4>
-                            <p class="text-gray-700">(021) 1234-5678<br/>(021) 8765-4321</p>
+                            <p class="text-gray-700">(021) 1234-5678<br />(021) 8765-4321</p>
                         </div>
                     </div>
 
                     <div class="flex items-start space-x-4">
                         <div class="w-12 h-12 bg-green-800 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
                         <div>
                             <h4 class="font-bold text-gray-900 mb-2">Jam Operasional</h4>
-                            <p class="text-gray-700">Senin - Jumat: 08.00 - 16.00 WIB<br/>Sabtu - Minggu: Tutup</p>
+                            <p class="text-gray-700">Senin - Jumat: 08.00 - 16.00 WIB<br />Sabtu - Minggu: Tutup</p>
                         </div>
                     </div>
                 </div>
@@ -381,10 +419,14 @@
                 <div>
                     <h3 class="text-xl font-bold mb-4">Tautan Cepat</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="#beranda" class="text-green-200 hover:text-white transition duration-300">Beranda</a></li>
-                        <li><a href="#tentang" class="text-green-200 hover:text-white transition duration-300">Tentang Sistem</a></li>
-                        <li><a href="#data-perkara" class="text-green-200 hover:text-white transition duration-300">Data Perkara</a></li>
-                        <li><a href="#kontak" class="text-green-200 hover:text-white transition duration-300">Kontak</a></li>
+                        <li><a href="#beranda"
+                                class="text-green-200 hover:text-white transition duration-300">Beranda</a></li>
+                        <li><a href="#tentang" class="text-green-200 hover:text-white transition duration-300">Tentang
+                                Sistem</a></li>
+                        <li><a href="#data-perkara"
+                                class="text-green-200 hover:text-white transition duration-300">Data Perkara</a></li>
+                        <li><a href="#kontak"
+                                class="text-green-200 hover:text-white transition duration-300">Kontak</a></li>
                     </ul>
                 </div>
                 <div>
@@ -413,7 +455,7 @@
     <script>
         // Smooth scrolling untuk navigasi
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
@@ -436,4 +478,5 @@
         });
     </script>
 </body>
+
 </html>

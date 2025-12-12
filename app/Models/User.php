@@ -40,6 +40,12 @@ class User extends Authenticatable
         return $this->hasMany(RiwayatPerkara::class, 'user_id');
     }
 
+    // Relationship: User has many uploaded documents
+    public function uploadedDocuments()
+    {
+        return $this->hasMany(DokumenPerkara::class, 'uploaded_by');
+    }
+
     // Relationship: User has many Notifications
     public function notifications()
     {

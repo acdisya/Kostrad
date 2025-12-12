@@ -50,22 +50,43 @@
     <!-- Navbar -->
     <nav class="bg-gradient-to-r from-green-900 via-green-800 to-green-900 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
+            <div class="flex justify-between items-center h-18 py-3">
                 <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
-                        <svg class="w-6 h-6 text-green-800" fill="currentColor" viewBox="0 0 20 20">
-                            <path
-                                d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
-                        </svg>
-                    </div>
-                    <div>
-                        <h1 class="text-white font-bold text-lg">SIPERKARA DIV-2</h1>
-                        <p class="text-green-200 text-xs">Dashboard Analytics</p>
-                    </div>
+                    <a href="{{ route('landing') }}" class="flex items-center space-x-3 group">
+                        <div
+                            class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
+                            <svg class="w-7 h-7 text-green-800" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h1 class="text-white font-bold text-lg group-hover:text-green-200 transition-colors">
+                                SIPERKARA DIV-2</h1>
+                            <p class="text-green-200 text-xs">Divisi 2 Kostrad</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="{{ route('admin.dashboard') }}"
+                        class="text-green-300 font-bold border-b-2 border-green-300 pb-1">Dashboard</a>
+                    <a href="{{ route('admin.perkaras.index') }}"
+                        class="text-white hover:text-green-300 font-medium transition">Perkara</a>
+                    <a href="{{ route('admin.personels.index') }}"
+                        class="text-white hover:text-green-300 font-medium transition">Personel</a>
+                    @if (auth()->user()->hasPermission('manage_users'))
+                        <a href="{{ route('admin.users.index') }}"
+                            class="text-white hover:text-green-300 font-medium transition">User</a>
+                    @endif
+                    @if (auth()->user()->hasPermission('view_logs'))
+                        <a href="{{ route('admin.activity-logs.index') }}"
+                            class="text-white hover:text-green-300 font-medium transition">Log Aktivitas</a>
+                    @endif
                 </div>
 
                 <div class="flex items-center space-x-4">
-                    <div class="text-right hidden md:block">
+                    <div class="text-right hidden lg:block">
                         <p class="text-white font-semibold text-sm">{{ auth()->user()->name }}</p>
                         <p class="text-green-200 text-xs">{{ auth()->user()->pangkat }} - {{ auth()->user()->jabatan }}
                         </p>
@@ -122,7 +143,8 @@
                     <div>
                         <p class="text-gray-600 text-sm font-semibold uppercase">Selesai</p>
                         <p class="text-3xl font-bold text-gray-900 mt-2">{{ $stats['perkara_selesai'] }}</p>
-                        <p class="text-xs text-green-600 mt-1 font-semibold">{{ $stats['completion_rate'] }}% completion
+                        <p class="text-xs text-green-600 mt-1 font-semibold">{{ $stats['completion_rate'] }}%
+                            completion
                             rate</p>
                     </div>
                     <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
@@ -179,7 +201,8 @@
                 <div class="flex items-center space-x-4">
                     <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 4v16m8-8H4" />
                         </svg>
                     </div>
                     <div>

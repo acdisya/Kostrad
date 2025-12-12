@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,18 +8,22 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
     </style>
 </head>
+
 <body class="bg-gray-50">
     <!-- Navbar -->
     <nav class="bg-gradient-to-r from-green-900 via-green-800 to-green-900 shadow-lg fixed w-full top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
+            <div class="flex justify-between items-center h-18 py-3">
                 <div class="flex items-center space-x-4">
-                    <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-md">
-                        <svg class="w-8 h-8 text-green-800" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
+                    <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md">
+                        <svg class="w-7 h-7 text-green-800" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
                         </svg>
                     </div>
                     <div>
@@ -27,8 +32,10 @@
                     </div>
                 </div>
                 <div class="hidden md:flex space-x-8">
-                    <a href="{{ route('landing') }}" class="text-white hover:text-green-300 font-medium transition duration-300">Beranda</a>
-                    <a href="#" class="text-green-300 font-bold border-b-2 border-green-300">Data Perkara Publik</a>
+                    <a href="{{ route('landing') }}"
+                        class="text-white hover:text-green-300 font-medium transition duration-300">Beranda</a>
+                    <a href="#" class="text-green-300 font-bold border-b-2 border-green-300">Data Perkara
+                        Publik</a>
                 </div>
             </div>
         </div>
@@ -49,15 +56,20 @@
     <!-- Filter & Search Section -->
     <section class="py-8 bg-white border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <form method="GET" action="{{ route('perkara.public') }}" class="flex flex-col md:flex-row gap-4 items-center justify-between">
+            <form method="GET" action="{{ route('perkara.public') }}"
+                class="flex flex-col md:flex-row gap-4 items-center justify-between">
                 <div class="w-full md:w-1/2">
-                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nomor perkara, jenis perkara..." class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-green-800 focus:outline-none">
+                    <input type="text" name="search" value="{{ request('search') }}"
+                        placeholder="Cari nomor perkara, jenis perkara..."
+                        class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-green-800 focus:outline-none">
                 </div>
                 <div class="flex flex-wrap gap-3 w-full md:w-auto">
-                    <button type="submit" class="px-6 py-3 bg-green-800 text-white rounded-lg font-semibold hover:bg-green-900 transition duration-300">
+                    <button type="submit"
+                        class="px-6 py-3 bg-green-800 text-white rounded-lg font-semibold hover:bg-green-900 transition duration-300">
                         Cari
                     </button>
-                    <a href="{{ route('perkara.public') }}" class="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 transition duration-300">
+                    <a href="{{ route('perkara.public') }}"
+                        class="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 transition duration-300">
                         Reset
                     </a>
                 </div>
@@ -80,18 +92,23 @@
                         <thead class="bg-gradient-to-r from-green-800 to-green-900 text-white">
                             <tr>
                                 <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">No</th>
-                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Nomor Perkara</th>
-                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Jenis Perkara</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Nomor Perkara
+                                </th>
+                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Jenis Perkara
+                                </th>
                                 <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Kategori</th>
-                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Tanggal Masuk</th>
-                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Tanggal Selesai</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Tanggal Masuk
+                                </th>
+                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Tanggal
+                                    Selesai</th>
                                 <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Status</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200">
                             @forelse($perkaras as $index => $perkara)
                                 <tr class="hover:bg-gray-50 transition duration-200">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">{{ $perkaras->firstItem() + $index }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
+                                        {{ $perkaras->firstItem() + $index }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-bold text-gray-900">{{ $perkara->nomor_perkara }}</div>
                                     </td>
@@ -99,16 +116,19 @@
                                         <div class="text-sm text-gray-900">{{ $perkara->jenis_perkara }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-3 py-1 text-xs font-semibold rounded-full {{ $perkara->kategori_badge }}">
+                                        <span
+                                            class="px-3 py-1 text-xs font-semibold rounded-full {{ $perkara->kategori_badge }}">
                                             {{ $perkara->kategori->nama }}
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ $perkara->tanggal_masuk->format('d M Y') }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                                        {{ $perkara->tanggal_masuk->format('d M Y') }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                                         {{ $perkara->tanggal_selesai ? $perkara->tanggal_selesai->format('d M Y') : '-' }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-3 py-1 text-xs font-semibold rounded-full {{ $perkara->status_badge }}">
+                                        <span
+                                            class="px-3 py-1 text-xs font-semibold rounded-full {{ $perkara->status_badge }}">
                                             {{ $perkara->status }}
                                         </span>
                                     </td>
@@ -132,4 +152,5 @@
         </div>
     </section>
 </body>
+
 </html>
