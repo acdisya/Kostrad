@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Perkara Publik - SIPERKARA DIV-2</title>
+    <title>Data Perkara Publik - DivisiHukum2Kostrad</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -27,7 +27,7 @@
                         </svg>
                     </div>
                     <div>
-                        <h1 class="text-white font-bold text-lg">SIPERKARA DIV-2</h1>
+                        <h1 class="text-white font-bold text-lg">DivisiHukum2Kostrad</h1>
                         <p class="text-green-200 text-xs">Divisi 2 Kostrad</p>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                 class="flex flex-col md:flex-row gap-4 items-center justify-between">
                 <div class="w-full md:w-1/2">
                     <input type="text" name="search" value="{{ request('search') }}"
-                        placeholder="Cari nomor perkara, jenis perkara..."
+                        placeholder="Cari nomor perkara, jenis perkara, terdakwa..."
                         class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-green-800 focus:outline-none">
                 </div>
                 <div class="flex flex-wrap gap-3 w-full md:w-auto">
@@ -92,50 +92,77 @@
                         <thead class="bg-gradient-to-r from-green-800 to-green-900 text-white">
                             <tr>
                                 <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">No</th>
-                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Nomor Perkara
-                                </th>
-                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Jenis Perkara
-                                </th>
-                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Kategori</th>
-                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Tanggal Masuk
-                                </th>
-                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Tanggal
-                                    Selesai</th>
-                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Nomor Perkara</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Tanggal Register</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Klasifikasi Perkara</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Para Pihak</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Status Perkara</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Lama Proses</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Link</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200">
                             @forelse($perkaras as $index => $perkara)
                                 <tr class="hover:bg-gray-50 transition duration-200">
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
-                                        {{ $perkaras->firstItem() + $index }}</td>
+                                        {{ $perkaras->firstItem() + $index }}
+                                    </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-bold text-gray-900">{{ $perkara->nomor_perkara }}</div>
                                     </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                                        {{ $perkara->tanggal_pendaftaran ? $perkara->tanggal_pendaftaran->format('d M Y') : '-' }}
+                                    </td>
                                     <td class="px-6 py-4">
-                                        <div class="text-sm text-gray-900">{{ $perkara->jenis_perkara }}</div>
+                                        <div class="text-sm text-gray-900">{{ $perkara->klasifikasi_perkara ?: '-' }}</div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="mb-2">
+                                            <span class="text-xs font-semibold text-gray-700">Oditur:</span>
+                                            @if($perkara->oditur && is_array($perkara->oditur))
+                                                @foreach($perkara->oditur as $oditur)
+                                                    <div class="text-sm text-gray-900">{{ $oditur }}</div>
+                                                @endforeach
+                                            @else
+                                                <span class="text-sm text-gray-400">-</span>
+                                            @endif
+                                        </div>
+                                        <div>
+                                            <span class="text-xs font-semibold text-gray-700">Terdakwa:</span>
+                                            @if($perkara->terdakwa && is_array($perkara->terdakwa))
+                                                @foreach($perkara->terdakwa as $terdakwa)
+                                                    <div class="text-sm text-gray-900">{{ $terdakwa }}</div>
+                                                @endforeach
+                                            @else
+                                                <span class="text-sm text-gray-400">-</span>
+                                            @endif
+                                        </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span
-                                            class="px-3 py-1 text-xs font-semibold rounded-full {{ $perkara->kategori_badge }}">
-                                            {{ $perkara->kategori->nama }}
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                                        {{ $perkara->tanggal_masuk->format('d M Y') }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                                        {{ $perkara->tanggal_selesai ? $perkara->tanggal_selesai->format('d M Y') : '-' }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span
-                                            class="px-3 py-1 text-xs font-semibold rounded-full {{ $perkara->status_badge }}">
+                                        <span class="px-3 py-1 text-xs font-semibold rounded-full {{ $perkara->status_badge }}">
                                             {{ $perkara->status }}
                                         </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                                        @php
+                                            if ($perkara->tanggal_selesai) {
+                                                $lamaProses = $perkara->tanggal_masuk->diffInDays($perkara->tanggal_selesai);
+                                            } else {
+                                                $lamaProses = $perkara->tanggal_masuk->diffInDays(now());
+                                            }
+                                        @endphp
+                                        {{ $lamaProses }} Hari
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                        <a href="{{ route('perkara.public.show', $perkara->id) }}"
+                                           class="text-green-800 hover:text-green-900 font-semibold hover:underline">
+                                            [detail]
+                                        </a>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="px-6 py-8 text-center text-gray-500">
+                                    <td colspan="8" class="px-6 py-8 text-center text-gray-500">
                                         Tidak ada data perkara yang dipublikasikan
                                     </td>
                                 </tr>

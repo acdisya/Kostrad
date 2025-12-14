@@ -76,7 +76,7 @@
                     <a href="{{ route('admin.personels.index') }}"
                         class="text-white hover:text-green-300 font-medium transition">Personel</a>
                     @if (auth()->user()->hasPermission('manage_users'))
-                        <a href="{{ route('admin.users.index') }}"
+                        <a href="{{ route('admin.personels.index') }}"
                             class="text-white hover:text-green-300 font-medium transition">User</a>
                     @endif
                     @if (auth()->user()->hasPermission('view_logs'))

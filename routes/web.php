@@ -37,7 +37,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::get('/documents/create', [\App\Http\Controllers\Admin\DokumenPerkaraController::class, 'create'])->name('documents.create');
         Route::post('/documents', [\App\Http\Controllers\Admin\DokumenPerkaraController::class, 'store'])->name('documents.store');
     });
-    
+
     Route::prefix('documents')->name('documents.')->group(function () {
         Route::get('/{document}', [\App\Http\Controllers\Admin\DokumenPerkaraController::class, 'show'])->name('show');
         Route::get('/{document}/edit', [\App\Http\Controllers\Admin\DokumenPerkaraController::class, 'edit'])->name('edit');
@@ -96,3 +96,4 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 // Public Tracking Routes
 Route::get('/track/case/{id}', [PublicController::class, 'trackCase'])->name('perkara.track');
 Route::get('/track/document/{id}', [PublicController::class, 'trackDocument'])->name('dokumen.track');
+Route::get('/perkara/public/{id}', [PerkaraController::class, 'showPublic'])->name('perkara.public.show');

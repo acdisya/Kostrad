@@ -82,7 +82,7 @@ class PerkaraController extends Controller
         // Sorting
         $sortBy = $request->get('sort_by', 'created_at');
         $sortDir = $request->get('sort_dir', 'desc');
-        
+
         $allowedSorts = ['created_at', 'deadline', 'priority', 'progress', 'tanggal_perkara'];
         if (in_array($sortBy, $allowedSorts)) {
             $query->orderBy($sortBy, $sortDir);
@@ -120,6 +120,7 @@ class PerkaraController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            // Informasi Dasar
             'nomor_perkara' => 'required|unique:perkaras,nomor_perkara',
             'jenis_perkara' => 'required|string|max:255',
             'nama' => 'nullable|string|max:255',
@@ -128,12 +129,42 @@ class PerkaraController extends Controller
             'tanggal_masuk' => 'required|date',
             'tanggal_perkara' => 'nullable|date',
             'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_masuk',
+            'tanggal_pendaftaran' => 'nullable|date',
+            'klasifikasi_perkara' => 'nullable|string|max:255',
+
+            // Status & Priority
             'deadline' => 'nullable|date|after_or_equal:tanggal_masuk',
             'status' => 'required|in:Proses,Selesai',
             'priority' => 'required|in:Low,Medium,High,Urgent',
             'progress' => 'nullable|integer|min:0|max:100',
             'estimated_days' => 'nullable|integer|min:1',
             'assigned_to' => 'nullable|string|max:255',
+
+            // Para Pihak
+            'oditur' => 'nullable|array',
+            'oditur.*' => 'nullable|string',
+            'terdakwa' => 'nullable|array',
+            'terdakwa.*' => 'nullable|string',
+
+            // Pasal
+            'pasal_dakwaan' => 'nullable|string',
+
+            // Informasi Surat
+            'nomor_surat_pelimpahan' => 'nullable|string|max:255',
+            'tanggal_surat_pelimpahan' => 'nullable|date',
+            'nomor_surat_dakwaan' => 'nullable|string|max:255',
+            'tanggal_surat_dakwaan' => 'nullable|date',
+            'nomor_skeppera' => 'nullable|string|max:255',
+            'tanggal_skeppera' => 'nullable|date',
+            'pejabat_skeppera' => 'nullable|string|max:255',
+            'nomor_bap_penyidik' => 'nullable|string|max:255',
+            'tanggal_bap_penyidik' => 'nullable|date',
+
+            // Kejadian
+            'tanggal_kejadian' => 'nullable|date',
+            'tempat_kejadian' => 'nullable|string|max:255',
+
+            // Notes & Files
             'keterangan' => 'nullable|string',
             'internal_notes' => 'nullable|string',
             'tags' => 'nullable|string',
@@ -150,6 +181,19 @@ class PerkaraController extends Controller
             'file_dokumentasi.mimes' => 'File harus berformat PDF',
             'file_dokumentasi.max' => 'File maksimal 5MB',
         ]);
+
+        // Filter array kosong untuk oditur dan terdakwa
+        if ($request->filled('oditur')) {
+            $validated['oditur'] = array_values(array_filter($request->oditur, function($value) {
+                return !empty(trim($value));
+            }));
+        }
+
+        if ($request->filled('terdakwa')) {
+            $validated['terdakwa'] = array_values(array_filter($request->terdakwa, function($value) {
+                return !empty(trim($value));
+            }));
+        }
 
         // Handle file upload
         if ($request->hasFile('file_dokumentasi')) {
@@ -171,12 +215,11 @@ class PerkaraController extends Controller
         // Attach personels if provided
         if ($request->filled('personels')) {
             $notificationService = app(NotificationService::class);
-            
+
             foreach ($request->personels as $personelId => $peran) {
                 if ($peran) {
                     $perkara->personels()->attach($personelId, ['peran' => $peran]);
-                    
-                    // Send notification to assigned personel (if personel has user account)
+
                     $personel = Personel::find($personelId);
                     if ($personel && $personel->user_id) {
                         $user = \App\Models\User::find($personel->user_id);
@@ -220,6 +263,7 @@ class PerkaraController extends Controller
     public function update(Request $request, Perkara $perkara)
     {
         $validated = $request->validate([
+            // Sama seperti store(), tambahkan semua field
             'nomor_perkara' => 'required|unique:perkaras,nomor_perkara,' . $perkara->id,
             'jenis_perkara' => 'required|string|max:255',
             'nama' => 'nullable|string|max:255',
@@ -228,12 +272,30 @@ class PerkaraController extends Controller
             'tanggal_masuk' => 'required|date',
             'tanggal_perkara' => 'nullable|date',
             'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_masuk',
+            'tanggal_pendaftaran' => 'nullable|date',
+            'klasifikasi_perkara' => 'nullable|string|max:255',
             'deadline' => 'nullable|date|after_or_equal:tanggal_masuk',
             'status' => 'required|in:Proses,Selesai',
             'priority' => 'required|in:Low,Medium,High,Urgent',
             'progress' => 'nullable|integer|min:0|max:100',
             'estimated_days' => 'nullable|integer|min:1',
             'assigned_to' => 'nullable|string|max:255',
+            'oditur' => 'nullable|array',
+            'oditur.*' => 'nullable|string',
+            'terdakwa' => 'nullable|array',
+            'terdakwa.*' => 'nullable|string',
+            'pasal_dakwaan' => 'nullable|string',
+            'nomor_surat_pelimpahan' => 'nullable|string|max:255',
+            'tanggal_surat_pelimpahan' => 'nullable|date',
+            'nomor_surat_dakwaan' => 'nullable|string|max:255',
+            'tanggal_surat_dakwaan' => 'nullable|date',
+            'nomor_skeppera' => 'nullable|string|max:255',
+            'tanggal_skeppera' => 'nullable|date',
+            'pejabat_skeppera' => 'nullable|string|max:255',
+            'nomor_bap_penyidik' => 'nullable|string|max:255',
+            'tanggal_bap_penyidik' => 'nullable|date',
+            'tanggal_kejadian' => 'nullable|date',
+            'tempat_kejadian' => 'nullable|string|max:255',
             'keterangan' => 'nullable|string',
             'internal_notes' => 'nullable|string',
             'tags' => 'nullable|string',
@@ -241,9 +303,21 @@ class PerkaraController extends Controller
             'file_dokumentasi' => 'nullable|file|mimes:pdf|max:5120',
         ]);
 
+        // Filter arrays
+        if ($request->filled('oditur')) {
+            $validated['oditur'] = array_values(array_filter($request->oditur, function($value) {
+                return !empty(trim($value));
+            }));
+        }
+
+        if ($request->filled('terdakwa')) {
+            $validated['terdakwa'] = array_values(array_filter($request->terdakwa, function($value) {
+                return !empty(trim($value));
+            }));
+        }
+
         // Handle file upload
         if ($request->hasFile('file_dokumentasi')) {
-            // Delete old file
             if ($perkara->file_dokumentasi) {
                 Storage::disk('public')->delete($perkara->file_dokumentasi);
             }
@@ -254,24 +328,20 @@ class PerkaraController extends Controller
             $validated['file_dokumentasi'] = $path;
         }
 
-        // Convert comma-separated tags to array
         if ($request->filled('tags')) {
             $validated['tags'] = array_map('trim', explode(',', $request->tags));
         }
 
         $validated['is_public'] = $request->boolean('is_public');
 
-        // Check if status changed
         $oldStatus = $perkara->status;
         $statusChanged = $oldStatus !== $validated['status'];
 
         $perkara->update($validated);
 
-        // Send status change notification
         if ($statusChanged) {
             $notificationService = app(NotificationService::class);
-            
-            // Notify all personels assigned to this case
+
             foreach ($perkara->personels as $personel) {
                 if ($personel->user_id) {
                     $user = \App\Models\User::find($personel->user_id);
@@ -282,7 +352,6 @@ class PerkaraController extends Controller
             }
         }
 
-        // Sync personels
         if ($request->filled('personels')) {
             $sync = [];
             foreach ($request->personels as $personelId => $peran) {
@@ -394,6 +463,14 @@ class PerkaraController extends Controller
 
         return response()->stream($callback, 200, $headers);
     }
+    public function showPublic($id)
+{
+    $perkara = Perkara::with('kategori')
+        ->where('is_public', true)
+        ->findOrFail($id);
+
+    return view('perkara.show', compact('perkara'));
+}
 
     /**
      * Export perkaras to PDF

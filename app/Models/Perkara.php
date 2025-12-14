@@ -14,6 +14,7 @@ class Perkara extends Model
     protected $table = 'perkaras';
 
     protected $fillable = [
+        // Informasi Dasar
         'nomor_perkara',
         'jenis_perkara',
         'nama',
@@ -22,12 +23,42 @@ class Perkara extends Model
         'tanggal_masuk',
         'tanggal_perkara',
         'tanggal_selesai',
+        'tanggal_pendaftaran',
+        'klasifikasi_perkara',
+
+        // Status & Priority
         'status',
         'priority',
         'deadline',
         'progress',
         'estimated_days',
+
+        // Assignment
         'assigned_to',
+
+        // Para Pihak
+        'oditur',
+        'terdakwa',
+
+        // Pasal
+        'pasal_dakwaan',
+
+        // Informasi Surat
+        'nomor_surat_pelimpahan',
+        'tanggal_surat_pelimpahan',
+        'nomor_surat_dakwaan',
+        'tanggal_surat_dakwaan',
+        'nomor_skeppera',
+        'tanggal_skeppera',
+        'pejabat_skeppera',
+        'nomor_bap_penyidik',
+        'tanggal_bap_penyidik',
+
+        // Kejadian
+        'tanggal_kejadian',
+        'tempat_kejadian',
+
+        // Notes & Files
         'keterangan',
         'internal_notes',
         'tags',
@@ -36,23 +67,37 @@ class Perkara extends Model
     ];
 
     protected $casts = [
+        // Dates
         'tanggal_masuk' => 'date',
         'tanggal_perkara' => 'date',
         'tanggal_selesai' => 'date',
+        'tanggal_pendaftaran' => 'date',
+        'tanggal_surat_pelimpahan' => 'date',
+        'tanggal_surat_dakwaan' => 'date',
+        'tanggal_skeppera' => 'date',
+        'tanggal_bap_penyidik' => 'date',
+        'tanggal_kejadian' => 'date',
         'deadline' => 'date',
+
+        // Boolean
         'is_public' => 'boolean',
+
+        // Arrays/JSON
         'tags' => 'array',
+        'oditur' => 'array',
+        'terdakwa' => 'array',
+
+        // Integers
         'progress' => 'integer',
         'estimated_days' => 'integer',
     ];
 
-    // Relationship: Perkara belongs to Kategori
+    // Relationships
     public function kategori()
     {
         return $this->belongsTo(Kategori::class, 'kategori_id');
     }
 
-    // Relationship: Perkara has many Personel (Many-to-Many)
     public function personels()
     {
         return $this->belongsToMany(Personel::class, 'perkara_personel')
@@ -60,37 +105,67 @@ class Perkara extends Model
                     ->withTimestamps();
     }
 
-    // Relationship: Perkara has many Dokumen
     public function dokumens()
     {
         return $this->hasMany(DokumenPerkara::class, 'perkara_id');
     }
 
-    // Relationship: Perkara has many Riwayat
     public function riwayats()
     {
         return $this->hasMany(RiwayatPerkara::class, 'perkara_id');
     }
 
-    // Scope: Hanya data publik
+    // Scopes
     public function scopePublic($query)
     {
         return $query->where('is_public', true);
     }
 
-    // Scope: Hanya status Selesai
     public function scopeSelesai($query)
     {
         return $query->where('status', 'Selesai');
     }
 
-    // Scope: Hanya status Proses
     public function scopeProses($query)
     {
         return $query->where('status', 'Proses');
     }
 
-    // Accessor: Get badge color berdasarkan status
+    public function scopePriority($query, $priority)
+    {
+        return $query->where('priority', $priority);
+    }
+
+    public function scopeUrgent($query)
+    {
+        return $query->where('priority', 'Urgent');
+    }
+
+    public function scopeHighPriority($query)
+    {
+        return $query->whereIn('priority', ['High', 'Urgent']);
+    }
+
+    public function scopeOverdue($query)
+    {
+        return $query->whereNotNull('deadline')
+                    ->where('deadline', '<', now())
+                    ->where('status', '!=', 'Selesai');
+    }
+
+    public function scopeUpcomingDeadline($query, $days = 7)
+    {
+        return $query->whereNotNull('deadline')
+                    ->whereBetween('deadline', [now(), now()->addDays($days)])
+                    ->where('status', '!=', 'Selesai');
+    }
+
+    public function scopeAssignedTo($query, $assignee)
+    {
+        return $query->where('assigned_to', $assignee);
+    }
+
+    // Accessors
     public function getStatusBadgeAttribute()
     {
         return $this->status === 'Selesai'
@@ -98,7 +173,6 @@ class Perkara extends Model
             : 'bg-yellow-100 text-yellow-800';
     }
 
-    // Accessor: Get kategori badge color
     public function getKategoriBadgeAttribute()
     {
         $colors = [
@@ -110,22 +184,6 @@ class Perkara extends Model
         return $colors[$this->kategori->nama] ?? 'bg-gray-100 text-gray-800';
     }
 
-    // Method: Auto generate nomor perkara
-    public static function generateNomorPerkara()
-    {
-        $year = date('Y');
-        $lastPerkara = self::whereYear('created_at', $year)
-                          ->orderBy('id', 'desc')
-                          ->first();
-
-        $nextNumber = $lastPerkara
-            ? (int) substr($lastPerkara->nomor_perkara, -3) + 1
-            : 1;
-
-        return sprintf('PERK/DIV2/%s/%03d', $year, $nextNumber);
-    }
-
-    // Accessor: Priority badge
     public function getPriorityBadgeAttribute()
     {
         $badges = [
@@ -138,7 +196,6 @@ class Perkara extends Model
         return $badges[$this->priority] ?? $badges['Medium'];
     }
 
-    // Accessor: Priority color class
     public function getPriorityColorAttribute()
     {
         $colors = [
@@ -151,11 +208,10 @@ class Perkara extends Model
         return $colors[$this->priority] ?? 'text-gray-600';
     }
 
-    // Accessor: Progress badge
     public function getProgressBadgeAttribute()
     {
-        $progress = $this->progress;
-        
+        $progress = $this->progress ?? 0;
+
         if ($progress >= 75) {
             $color = 'bg-green-500';
         } elseif ($progress >= 50) {
@@ -172,7 +228,6 @@ class Perkara extends Model
                 <span class='text-xs text-gray-600 mt-1'>{$progress}%</span>";
     }
 
-    // Accessor: Days until deadline
     public function getDaysUntilDeadlineAttribute()
     {
         if (!$this->deadline) {
@@ -181,11 +236,10 @@ class Perkara extends Model
 
         $now = now()->startOfDay();
         $deadline = $this->deadline->startOfDay();
-        
+
         return $now->diffInDays($deadline, false);
     }
 
-    // Accessor: Deadline status
     public function getDeadlineStatusAttribute()
     {
         $days = $this->days_until_deadline;
@@ -205,7 +259,6 @@ class Perkara extends Model
         return 'normal';
     }
 
-    // Accessor: Deadline badge
     public function getDeadlineBadgeAttribute()
     {
         $days = $this->days_until_deadline;
@@ -239,58 +292,32 @@ class Perkara extends Model
         );
     }
 
-    // Scope: Filter by priority
-    public function scopePriority($query, $priority)
+    // Static Methods
+    public static function generateNomorPerkara()
     {
-        return $query->where('priority', $priority);
+        $year = date('Y');
+        $lastPerkara = self::whereYear('created_at', $year)
+                          ->orderBy('id', 'desc')
+                          ->first();
+
+        $nextNumber = $lastPerkara
+            ? (int) substr($lastPerkara->nomor_perkara, -3) + 1
+            : 1;
+
+        return sprintf('PERK/DIV2/%s/%03d', $year, $nextNumber);
     }
 
-    // Scope: Urgent cases
-    public function scopeUrgent($query)
-    {
-        return $query->where('priority', 'Urgent');
-    }
-
-    // Scope: High priority
-    public function scopeHighPriority($query)
-    {
-        return $query->whereIn('priority', ['High', 'Urgent']);
-    }
-
-    // Scope: Overdue cases
-    public function scopeOverdue($query)
-    {
-        return $query->whereNotNull('deadline')
-                    ->where('deadline', '<', now())
-                    ->where('status', '!=', 'Selesai');
-    }
-
-    // Scope: Upcoming deadline
-    public function scopeUpcomingDeadline($query, $days = 7)
-    {
-        return $query->whereNotNull('deadline')
-                    ->whereBetween('deadline', [now(), now()->addDays($days)])
-                    ->where('status', '!=', 'Selesai');
-    }
-
-    // Scope: Assigned to specific person
-    public function scopeAssignedTo($query, $assignee)
-    {
-        return $query->where('assigned_to', $assignee);
-    }
-
-    // Check if case is overdue
+    // Methods
     public function isOverdue()
     {
-        return $this->deadline && 
-               $this->deadline->isPast() && 
+        return $this->deadline &&
+               $this->deadline->isPast() &&
                $this->status !== 'Selesai';
     }
 
-    // Check if deadline is approaching (within 7 days)
     public function isDeadlineApproaching()
     {
-        return $this->deadline && 
+        return $this->deadline &&
                $this->deadline->isFuture() &&
                $this->deadline->diffInDays(now()) <= 7 &&
                $this->status !== 'Selesai';
